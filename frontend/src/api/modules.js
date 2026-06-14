@@ -21,3 +21,11 @@ export const appointmentApi = {
   create: (payload) => api.post('/appointments', payload),
   cancel: (id, reason) => api.post(`/appointments/${id}/cancel`, { reason }),
 }
+
+export const reminderApi = {
+  list: () => api.get('/reminders'),
+  listUpcoming: (hoursAhead = 24) => api.get(`/reminders/upcoming?hours_ahead=${hoursAhead}`),
+  get: (id) => api.get(`/reminders/${id}`),
+  send: (id) => api.post(`/reminders/${id}/send`),
+  read: (id) => api.post(`/reminders/${id}/read`),
+}

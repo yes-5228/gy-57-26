@@ -2,9 +2,9 @@ from datetime import datetime
 
 from fastapi import HTTPException, status
 
-from app.models import Appointment, AppointmentStatus
+from app.models import Appointment, AppointmentStatus, Reminder, ReminderStatus
 from app.schemas import AppointmentCreate, AppointmentRead
-from app.store import appointments, cancel_rule, coaches, next_id, students
+from app.store import appointments, cancel_rule, coaches, next_id, reminders, students
 
 
 def appointment_to_read(appointment: Appointment) -> AppointmentRead:
@@ -16,6 +16,7 @@ def appointment_to_read(appointment: Appointment) -> AppointmentRead:
         student_name=student.name,
         coach_id=coach.id,
         coach_name=coach.name,
+        car_no=coach.car_no,
         start_time=appointment.start_time,
         end_time=appointment.end_time,
         status=appointment.status,
@@ -74,6 +75,24 @@ def create_appointment(payload: AppointmentCreate) -> AppointmentRead:
         created_at=datetime.now(),
     )
     appointments[appointment.id] = appointment
+
+    student = students[payload.student_id]
+    coach = coaches[payload.coach_id]
+    reminder = Reminder(
+        id=next_id("reminder"),
+        appointment_id=appointment.id,
+        student_id=student.id,
+        student_name=student.name,
+        coach_id=coach.id,
+        coach_name=coach.name,
+        car_no=coach.car_no,
+        start_time=start_time,
+        end_time=end_time,
+        status=ReminderStatus.pending,
+        created_at=datetime.now(),
+    )
+    reminders[reminder.id] = reminder
+
     return appointment_to_read(appointment)
 
 

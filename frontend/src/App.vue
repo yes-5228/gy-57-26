@@ -5,6 +5,10 @@
       :refresh-token="refreshToken"
       @navigate="activeView = $event"
     />
+    <RemindersView
+      v-else-if="activeView === 'reminders'"
+      :refresh-token="refreshToken"
+    />
     <AppointmentsView
       v-else-if="activeView === 'appointments'"
       :students="students"
@@ -32,6 +36,7 @@ import AppShell from './components/AppShell.vue'
 import AppointmentsView from './views/AppointmentsView.vue'
 import CoachesView from './views/CoachesView.vue'
 import DashboardView from './views/DashboardView.vue'
+import RemindersView from './views/RemindersView.vue'
 import StatsView from './views/StatsView.vue'
 import StudentsView from './views/StudentsView.vue'
 import { coachApi, studentApi } from './api/modules'

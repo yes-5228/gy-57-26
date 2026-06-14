@@ -264,6 +264,21 @@ th {
   color: #1d4ed8;
 }
 
+.badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge.sent {
+  background: #ddd6fe;
+  color: #5b21b6;
+}
+
+.badge.read {
+  background: #e5e7eb;
+  color: #374151;
+}
+
 .empty-state {
   border: 1px dashed #bcccdc;
   border-radius: 6px;

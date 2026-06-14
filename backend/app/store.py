@@ -1,14 +1,15 @@
 from datetime import datetime, timedelta
 
-from app.models import Appointment, AppointmentStatus, CancelRule, Coach, Student
+from app.models import Appointment, AppointmentStatus, CancelRule, Coach, Reminder, ReminderStatus, Student
 
 
 students: dict[int, Student] = {}
 coaches: dict[int, Coach] = {}
 appointments: dict[int, Appointment] = {}
+reminders: dict[int, Reminder] = {}
 cancel_rule = CancelRule()
 
-_ids = {"student": 0, "coach": 0, "appointment": 0}
+_ids = {"student": 0, "coach": 0, "appointment": 0, "reminder": 0}
 
 
 def next_id(kind: str) -> int:
@@ -63,3 +64,18 @@ def seed_data() -> None:
     )
     appointments[appt.id] = appt
     appointments[done.id] = done
+
+    r1 = Reminder(
+        id=next_id("reminder"),
+        appointment_id=appt.id,
+        student_id=s1.id,
+        student_name=s1.name,
+        coach_id=c1.id,
+        coach_name=c1.name,
+        car_no=c1.car_no,
+        start_time=appt.start_time,
+        end_time=appt.end_time,
+        status=ReminderStatus.pending,
+        created_at=now,
+    )
+    reminders[r1.id] = r1

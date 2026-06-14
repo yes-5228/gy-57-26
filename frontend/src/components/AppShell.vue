@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import { CalendarDays, ClipboardList, Gauge, UserRoundCog, UsersRound } from 'lucide-vue-next'
+import { Bell, CalendarDays, ClipboardList, Gauge, UserRoundCog, UsersRound } from 'lucide-vue-next'
 
 defineProps({
   modelValue: {
@@ -37,6 +37,7 @@ defineEmits(['update:modelValue'])
 
 const items = [
   { key: 'dashboard', label: '概览', icon: Gauge },
+  { key: 'reminders', label: '课前提醒', icon: Bell },
   { key: 'appointments', label: '预约', icon: CalendarDays },
   { key: 'coaches', label: '教练', icon: UserRoundCog },
   { key: 'students', label: '学员', icon: UsersRound },

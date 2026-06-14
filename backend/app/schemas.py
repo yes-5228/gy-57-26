@@ -1,7 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, Field, field_validator
 
-from app.models import AppointmentStatus
+from app.models import AppointmentStatus, ReminderStatus
 
 
 class StudentCreate(BaseModel):
@@ -47,12 +47,28 @@ class AppointmentRead(BaseModel):
     student_name: str
     coach_id: int
     coach_name: str
+    car_no: str
     start_time: datetime
     end_time: datetime
     status: AppointmentStatus
     created_at: datetime
     cancelled_at: datetime | None = None
     cancel_reason: str | None = None
+
+
+class ReminderRead(BaseModel):
+    id: int
+    appointment_id: int
+    student_id: int
+    student_name: str
+    coach_id: int
+    coach_name: str
+    car_no: str
+    start_time: datetime
+    end_time: datetime
+    status: ReminderStatus
+    created_at: datetime
+    sent_at: datetime | None = None
 
 
 class AppointmentCancel(BaseModel):

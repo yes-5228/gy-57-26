@@ -37,6 +37,27 @@ class Appointment(BaseModel):
     cancel_reason: str | None = None
 
 
+class ReminderStatus(str, Enum):
+    pending = "pending"
+    sent = "sent"
+    read = "read"
+
+
+class Reminder(BaseModel):
+    id: int
+    appointment_id: int
+    student_id: int
+    student_name: str
+    coach_id: int
+    coach_name: str
+    car_no: str
+    start_time: datetime
+    end_time: datetime
+    status: ReminderStatus = ReminderStatus.pending
+    created_at: datetime
+    sent_at: datetime | None = None
+
+
 class CancelRule(BaseModel):
     min_hours_before_start: int = 2
     max_active_bookings_per_student: int = 3
